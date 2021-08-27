@@ -42,8 +42,8 @@ export default function App() {
             },
           }}
         >
-          <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Home'}}/>
-          <Stack.Screen name="Add Training Day" component={AddTrainingDayScreen} />
+          <Stack.Screen options={{ title: '💪  Gym App' }} name="Home" component={HomeScreen} />
+          <Stack.Screen options={{ title: 'Dodaj trening' }} name="AddTrainingDay" component={AddTrainingDayScreen} />
         </Stack.Navigator>
       </NavigationContainer>
   );

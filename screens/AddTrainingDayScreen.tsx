@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Button, View, Text, StyleSheet} from 'react-native'
-import { Picker } from '@react-native-picker/picker';
-import Input from '../components/Input'
+import { View, Text, StyleSheet} from 'react-native';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import PickerCmp from '../components/Picker';
+import Colors from '../constants/Colors';
  
 const AddTrainingDayScreen = ({route, navigation: {goBack}}: any) => {
 
     const {addTrainingDay} = route.params
-    const [selectedDay, setSelectedDay] = useState('');
+    const [selectedDay, setSelectedDay] = useState('Poniedziałek');
     const [bodyPart, setBodyPart] = useState('');
 
     const handlePress = () => {
@@ -17,33 +19,37 @@ const AddTrainingDayScreen = ({route, navigation: {goBack}}: any) => {
     return ( 
         <View style={styles.container}>
             <Text style={styles.text}>Dzień tygodnia</Text>
-            <Picker
-                selectedValue={selectedDay}
-                onValueChange={(itemValue) =>
-                    setSelectedDay(itemValue)
-                    }>
-                <Picker.Item label="Poniedziałek" value="Poniedziałek" />
-                <Picker.Item label="Wtorek" value="Wtorek" />
-                <Picker.Item label="Środa" value="Środa" />
-                <Picker.Item label="Czwartek" value="Czwartek" />
-                <Picker.Item label="Piątek" value="Piątek" />
-                <Picker.Item label="Sobota" value="Sobota" />
-                <Picker.Item label="Niedziela" value="Niedziela" />
-            </Picker>
+            <PickerCmp selectedDay={selectedDay} setSelectedDay={setSelectedDay}/>
             <Text style={styles.text}>Partia ciała</Text>
-            <Input value={bodyPart} onChangeText={setBodyPart}/>
-            <Button title='Dodaj' onPress={handlePress}/>
+            <Input placeholder='np. Plecy' style={styles.input} value={bodyPart} onChangeText={setBodyPart}/>
+            <View style={styles.buttonContainer}>
+                <Button onPress={handlePress}></Button>
+            </View>
         </View>
      );
 }
 
 const styles = StyleSheet.create({
+    buttonContainer: {
+        alignItems: 'center',
+        marginTop: 32
+    },
     container: {
-        flex: 1,
-        margin: '10%'
+        margin: '10%',
+        marginTop: '15%'
+    },
+    input:{
+        marginHorizontal: 8,
+        marginBottom: 32,
+        color: Colors.primary
+    },
+    picker: {
+        color: Colors.primary,
+        marginVertical: 32,
     },
     text: {
-        // marginVertical: 10
+        fontSize: 24,
+        fontFamily: 'lato-bold'
     }
 })
  
