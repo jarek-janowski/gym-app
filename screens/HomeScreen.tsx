@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, StyleSheet} from 'react-native'
+import { ScrollView, View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import { Card } from 'react-native-elements'
 import { Ionicons } from '@expo/vector-icons'
 import uuid from 'react-native-uuid';
@@ -14,10 +14,8 @@ const HomeScreen = ({navigation}: any) => {
         part: 'Plecy'
     }
 
-    
-
     const [TrainingDays, setTrainingDays] = useState([exampleTraingDay])
-    // console.log(TrainingDays)
+
     const handleAddTrainingDay = (selectedDay: string, bodyPart:string) => {
         const obj = {
             id: uuid.v1(),
@@ -27,6 +25,13 @@ const HomeScreen = ({navigation}: any) => {
         setTrainingDays([...TrainingDays, obj])
     }
 
+    const handleRemoveTrainingDay = (id: any) => {
+        const removeSelectedTraining = TrainingDays.filter(training => {
+            return training.id !== id
+        })
+        setTrainingDays(removeSelectedTraining);
+    }
+
     return ( 
         <View style={styles.screen}>
             <View style={styles.container}>
@@ -34,7 +39,14 @@ const HomeScreen = ({navigation}: any) => {
                 <ScrollView>
                     {TrainingDays.map((day: any) => (
                         <Card key={day.id}>
-                            <Card.Title style={styles.day}>{day.day}</Card.Title>
+                            <View style={styles.cardTitleContainer}>
+                                <Card.Title style={styles.day}>
+                                    {day.day} 
+                                </Card.Title>
+                                <TouchableOpacity onPress={() => handleRemoveTrainingDay(day.id)} activeOpacity={0.5}>
+                                    <Ionicons name="trash" size={22} color={Colors.primary} />
+                                </TouchableOpacity>
+                            </View>
                             <Card.Divider/>
                             <Text style={styles.part}>{day.part}</Text>
                         </Card>
@@ -62,6 +74,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: '2.5%'
+    },
+    cardTitleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     container: {
         flex: 1,
