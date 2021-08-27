@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { Alert, View, Text, StyleSheet} from 'react-native';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import PickerCmp from '../components/Picker';
@@ -12,8 +12,13 @@ const AddTrainingDayScreen = ({route, navigation: {goBack}}: any) => {
     const [bodyPart, setBodyPart] = useState('');
 
     const handlePress = () => {
-        addTrainingDay(selectedDay, bodyPart);
+        if (!bodyPart) {
+            Alert.alert("Uzupełnij pole", 'Dodaj partię ciała, którą chcesz ćwiczyć tego dnia',)
+            return
+        }
+        addTrainingDay(selectedDay, bodyPart)
         goBack();
+        
     }
 
     return ( 
