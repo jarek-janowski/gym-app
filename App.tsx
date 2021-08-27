@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 
 import HomeScreen from './screens/HomeScreen';
 import AddTrainingDayScreen from './screens/AddTrainingDayScreen';
+
+import Colors from './constants/Colors'
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -29,23 +30,23 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Home'}}/>
-        <Stack.Screen name="Add Training Day" component={AddTrainingDayScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: Colors.primary
+            },
+            headerTintColor: Colors.white,
+            headerTitleStyle: {
+              fontFamily: 'lato-bold',
+            },
+          }}
+        >
+          <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Home'}}/>
+          <Stack.Screen name="Add Training Day" component={AddTrainingDayScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontFamily: 'lato-regular'
-  }
-});
+
