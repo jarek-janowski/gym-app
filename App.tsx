@@ -1,11 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
-import { enableScreens } from 'react-native-screens';
 
-enableScreens();
+import HomeScreen from './screens/HomeScreen';
+import AddTrainingDayScreen from './screens/AddTrainingDayScreen';
+
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 export default function App() {
 
@@ -19,11 +21,15 @@ export default function App() {
     return <AppLoading />
   }
 
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>LOREM IPSUM</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} options={{title: 'Home'}}/>
+        <Stack.Screen name="Add Training Day" component={AddTrainingDayScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -35,6 +41,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    fontFamily: 'lato-bold'
+    fontFamily: 'lato-regular'
   }
 });
