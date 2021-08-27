@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import { Alert, ScrollView, View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import { Card } from 'react-native-elements'
 import { Ionicons } from '@expo/vector-icons'
 import uuid from 'react-native-uuid';
@@ -26,10 +26,22 @@ const HomeScreen = ({navigation}: any) => {
     }
 
     const handleRemoveTrainingDay = (id: any) => {
-        const removeSelectedTraining = TrainingDays.filter(training => {
-            return training.id !== id
-        })
-        setTrainingDays(removeSelectedTraining);
+        Alert.alert("Uwaga!", 'Czy na pewno chcesz usunąć ten trening, tej decyzji nie da się potem cofnąć',
+            [
+                {
+                text: "ANULUJ",
+                onPress: () => console.log("Cancel Pressed"),
+                
+                },
+                { text: "OK", onPress: () => {
+                    const removeSelectedTraining = TrainingDays.filter(training => {
+                        return training.id !== id
+                    })
+                    setTrainingDays(removeSelectedTraining);
+                }}
+            ]
+        );
+        
     }
 
     return ( 
